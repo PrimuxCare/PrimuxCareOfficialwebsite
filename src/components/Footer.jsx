@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,10 +22,14 @@ const Footer = () => {
     <footer className="bg-gray-50 border-t border-gray-200">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
+          {/* Brand section */}
           <div className="lg:col-span-2">
-            <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent mb-4">
+            <Link
+              to="/"
+              className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent mb-4 block hover:opacity-80 transition"
+            >
               PrimuxCare
-            </div>
+            </Link>
             <p className="text-gray-600 mb-6 max-w-sm">
               Transforming healthcare through digital innovation and patient-centered technology solutions.
             </p>
@@ -34,6 +39,8 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
@@ -42,6 +49,7 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Link sections */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h3 className="font-semibold mb-4 text-gray-900">{category}</h3>
@@ -61,6 +69,7 @@ const Footer = () => {
           ))}
         </div>
 
+        {/* Copyright */}
         <div className="pt-8 border-t border-gray-200 text-center text-gray-600">
           <p>&copy; {currentYear} PrimuxCare. All rights reserved.</p>
         </div>

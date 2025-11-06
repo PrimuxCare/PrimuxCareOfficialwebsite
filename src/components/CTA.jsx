@@ -1,7 +1,18 @@
 import { Button } from "../components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CTA = () => {
+  const navigate = useNavigate(); // Hook to navigate programmatically
+
+  const handleGetStarted = () => {
+    navigate("/get-started"); // Navigate to GetStarted page
+  };
+
+  const handleContactSales = () => {
+    navigate("/contact-sales"); // Navigate to ContactSales page
+  };
+
   return (
     <section id="contact" className="py-24 bg-card">
       <div className="container mx-auto px-4">
@@ -18,11 +29,24 @@ const CTA = () => {
               Join thousands of healthcare providers and patients who are already experiencing 
               the future of digital health with PrimuxCare.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button variant="hero" size="lg" className="group">
+              <Button
+                variant="hero"
+                size="lg"
+                className="group"
+                onClick={handleGetStarted} // Navigate to GetStarted
+              >
                 Get Started Today
+                <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button variant="outline" size="lg" className="group">
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="group"
+                onClick={handleContactSales} // Navigate to ContactSales
+              >
                 <Mail className="mr-2" />
                 Contact Sales
               </Button>
@@ -42,7 +66,6 @@ const CTA = () => {
                 Cancel Anytime
               </div>
             </div>
-
           </div>
         </div>
       </div>
