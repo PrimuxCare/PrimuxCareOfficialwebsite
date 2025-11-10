@@ -13,7 +13,7 @@ const GetStarted = () => {
         {/* Heading Section */}
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
           Start Your{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-green-500 to-emerald-400 bg-clip-text text-transparent">
             Digital Health Project
           </span>
         </h1>
@@ -31,7 +31,7 @@ const GetStarted = () => {
             <label className="block text-gray-700 font-medium mb-2">
               Full Name
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-green-500">
               <User className="text-gray-400 mr-2" size={20} />
               <input
                 type="text"
@@ -47,7 +47,7 @@ const GetStarted = () => {
             <label className="block text-gray-700 font-medium mb-2">
               Email Address
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-green-500">
               <Mail className="text-gray-400 mr-2" size={20} />
               <input
                 type="email"
@@ -63,12 +63,9 @@ const GetStarted = () => {
             <label className="block text-gray-700 font-medium mb-2">
               Project Type
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-green-500">
               <Layers className="text-gray-400 mr-2" size={20} />
-              <select
-                className="w-full outline-none bg-transparent"
-                required
-              >
+              <select className="w-full outline-none bg-transparent" required>
                 <option value="">Select project type</option>
                 <option value="hospital-system">Hospital Management System</option>
                 <option value="telemedicine-platform">Telemedicine Platform</option>
@@ -84,12 +81,9 @@ const GetStarted = () => {
             <label className="block text-gray-700 font-medium mb-2">
               Estimated Budget
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-center border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-green-500">
               <DollarSign className="text-gray-400 mr-2" size={20} />
-              <select
-                className="w-full outline-none bg-transparent"
-                required
-              >
+              <select className="w-full outline-none bg-transparent" required>
                 <option value="">Select your budget range</option>
                 <option value="under-1000">Below $1,000</option>
                 <option value="1000-5000">$1,000 – $5,000</option>
@@ -104,7 +98,7 @@ const GetStarted = () => {
             <label className="block text-gray-700 font-medium mb-2">
               Project Details
             </label>
-            <div className="flex items-start border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-blue-500">
+            <div className="flex items-start border border-gray-300 rounded-lg p-3 focus-within:ring-2 focus-within:ring-green-500">
               <FileText className="text-gray-400 mr-2 mt-1" size={20} />
               <textarea
                 className="w-full outline-none"
@@ -118,7 +112,7 @@ const GetStarted = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-teal-400 text-white py-3 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-teal-500 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-400 text-white py-3 rounded-lg font-semibold text-lg hover:from-green-600 hover:to-emerald-500 transition-all duration-300"
           >
             Start My Project
           </button>

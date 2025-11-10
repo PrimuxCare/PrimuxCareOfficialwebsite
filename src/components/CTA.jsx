@@ -1,68 +1,73 @@
-import { Button } from "../components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const CTA = () => {
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate("/get-started"); // Navigate to GetStarted page
+    navigate("/get-started");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleContactSales = () => {
-    navigate("/contact-sales"); // Navigate to ContactSales page
+    navigate("/contact-sales");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <section id="contact" className="py-24 bg-card">
+    <section
+      id="contact"
+      className="py-24 bg-gradient-to-b from-white via-emerald-50 to-teal-50"
+    >
       <div className="container mx-auto px-4">
-        <div className="relative rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-10" />
+        <div className="relative rounded-3xl overflow-hidden shadow-lg">
+          {/* Soft emerald overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-10" />
+
           <div className="relative px-8 py-16 md:px-16 md:py-20 text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
               Ready to Transform Your{" "}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
                 Healthcare Experience?
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join thousands of healthcare providers and patients who are already experiencing 
-              the future of digital health with PrimuxCare.
+
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Join thousands of healthcare providers and patients already
+              experiencing the future of digital health with PrimuxCare.
             </p>
 
+            {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                variant="hero"
-                size="lg"
-                className="group"
-                onClick={handleGetStarted} // Navigate to GetStarted
+              <button
+                onClick={handleGetStarted}
+                className="group bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-8 py-4 rounded-lg hover:from-emerald-700 hover:to-teal-600 transition-all flex items-center justify-center gap-2 font-semibold shadow-md hover:shadow-lg"
               >
                 Get Started Today
                 <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </button>
 
-              <Button
-                variant="outline"
-                size="lg"
-                className="group"
-                onClick={handleContactSales} // Navigate to ContactSales
+              <button
+                onClick={handleContactSales}
+                className="group border-2 border-gray-300 text-gray-800 px-8 py-4 rounded-lg hover:border-emerald-500 hover:text-emerald-600 transition-all flex items-center justify-center gap-2 font-semibold"
               >
                 <Mail className="mr-2" />
                 Contact Sales
-              </Button>
+              </button>
             </div>
 
-            <div className="pt-8 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+            {/* Trust indicators */}
+            <div className="pt-8 flex flex-wrap justify-center gap-8 text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary" />
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
                 No Credit Card Required
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary" />
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
                 Free 30-Day Trial
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary" />
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
                 Cancel Anytime
               </div>
             </div>

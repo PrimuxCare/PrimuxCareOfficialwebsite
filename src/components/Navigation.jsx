@@ -1,116 +1,124 @@
-import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Navigation = () => {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation(); // to check current page
 
-  const navItems = [
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
-  ];
-
-  const handleScroll = (href) => {
-    if (location.pathname !== "/") {
-      // Navigate home first, then scroll
-      navigate("/", { replace: false });
-      setTimeout(() => {
-        const element = document.querySelector(href);
-        element?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+  const scrollToTop = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: "smooth", block: "start" });
+      navigate("/");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100); // slight delay to allow home page to render
     }
+    setIsOpen(false); // close mobile menu
+  };
+
+  // Scroll to a specific section (used for Services, About, Contact)
+  const scrollToSection = (id) => {
+    const section = document.querySelector(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        const target = document.querySelector(id);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+    setIsOpen(false);
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div
-          className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent cursor-pointer"
-          onClick={() => {
-            if (location.pathname === "/") {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-              navigate("/", { replace: false });
-              setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }, 100);
-            }
-          }}
-        >
-          PrimuxCare
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => handleScroll(item.href)}
-              className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+    <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <span
+              onClick={scrollToTop}
+              className="text-2xl font-bold text-emerald-700 hover:text-emerald-800 transition-colors cursor-pointer"
             >
-              {item.label}
+              Primux<span className="text-emerald-500">Care</span>
+            </span>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center space-x-8">
+            <button
+              onClick={() => scrollToSection("#services")}
+              className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
+            >
+              Services
             </button>
-          ))}
+            <button
+              onClick={() => scrollToSection("#about")}
+              className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
+            >
+              About
+            </button>
+            <button
+              onClick={() => scrollToSection("#contact")}
+              className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
+            >
+              Contact
+            </button>
+            <button
+              onClick={() => navigate("/get-started")}
+              className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-all font-semibold shadow-sm hover:shadow-md"
+            >
+              Get Started
+            </button>
+          </div>
 
-          <Button
-            variant="hero"
-            size="lg"
-            className="bg-gradient-to-r from-blue-500 to-teal-400 text-white hover:from-blue-600 hover:to-teal-500"
-            onClick={() => handleScroll("#contact")}
-          >
-            Get Started
-          </Button>
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-emerald-600 transition-colors"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-gray-800"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
-          {navItems.map((item) => (
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-sm">
+          <div className="px-4 py-4 space-y-3">
             <button
-              key={item.label}
-              onClick={() => {
-                handleScroll(item.href);
-                setIsOpen(false);
-              }}
-              className="text-gray-800 hover:text-blue-500 transition-colors duration-300 py-2"
+              onClick={() => scrollToSection("#services")}
+              className="block text-gray-700 hover:text-emerald-600 transition-colors py-2 w-full text-left"
             >
-              {item.label}
+              Services
             </button>
-          ))}
-
-          <Button
-            variant="hero"
-            size="lg"
-            className="w-full bg-gradient-to-r from-blue-500 to-teal-400 text-white hover:from-blue-600 hover:to-teal-500"
-            onClick={() => {
-              handleScroll("#contact");
-              setIsOpen(false);
-            }}
-          >
-            Get Started
-          </Button>
+            <button
+              onClick={() => scrollToSection("#about")}
+              className="block text-gray-700 hover:text-emerald-600 transition-colors py-2 w-full text-left"
+            >
+              About
+            </button>
+            <button
+              onClick={() => scrollToSection("#contact")}
+              className="block text-gray-700 hover:text-emerald-600 transition-colors py-2 w-full text-left"
+            >
+              Contact
+            </button>
+            <button
+              onClick={() => navigate("/get-started")}
+              className="w-full bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-all font-semibold shadow-sm hover:shadow-md"
+            >
+              Get Started
+            </button>
+          </div>
         </div>
       )}
     </nav>
   );
-};
-
-export default Navigation;
+}
