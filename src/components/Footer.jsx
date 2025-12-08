@@ -14,8 +14,8 @@ const Footer = () => {
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Twitter, href: "https://x.com/PrimuxCare_", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: " https://www.linkedin.com/company/primuxcare-hq/", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/primuxcare/", label: "Instagram" },
   ];
 
   return (
