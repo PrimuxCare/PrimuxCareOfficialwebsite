@@ -5,16 +5,33 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    Product: ["Features", "Pricing", "Security", "Updates"],
-    Company: ["Careers", "Blog", "Press"],
-    Resources: ["API", "Support", "Community"],
-    Legal: ["Terms", "Compliance", "Cookies"],
+    Product: [
+      { label: "Features", to: "/features" },
+      { label: "Pricing", to: "/pricing" },
+      { label: "Security", to: "/security" },
+      { label: "Updates", to: "/updates" },
+    ],
+    Company: [
+      { label: "Careers", to: "/careers" },
+      { label: "Blog", to: "/blog" },
+      { label: "Press", to: "/press" },
+    ],
+    Resources: [
+      { label: "API", to: "/api" },
+      { label: "Support", to: "/support" },
+      { label: "Community", to: "/community" },
+    ],
+    Legal: [
+      { label: "Terms", to: "/terms" },
+      { label: "Compliance", to: "/compliance" },
+      { label: "Cookies", to: "/cookies" },
+    ],
   };
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Twitter, href: "https://x.com/PrimuxCare_", label: "Twitter" },
-    { icon: Linkedin, href: " https://www.linkedin.com/company/primuxcare-hq/", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/primuxcare-hq/", label: "LinkedIn" },
     { icon: Instagram, href: "https://www.instagram.com/primuxcare/", label: "Instagram" },
   ];
 
@@ -22,7 +39,7 @@ const Footer = () => {
     <footer className="bg-gradient-to-t from-white via-emerald-50 to-teal-50 border-t border-emerald-100">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
-          {/* Brand section */}
+          {/* Brand */}
           <div className="lg:col-span-2">
             <Link
               to="/"
@@ -55,13 +72,14 @@ const Footer = () => {
               <h3 className="font-semibold mb-4 text-navy-900">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
                       className="text-navy-800 hover:text-amber-400 transition-colors duration-300"
+                      aria-label={link.label}
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

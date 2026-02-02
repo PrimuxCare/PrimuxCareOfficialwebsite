@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useMemo, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import heroImage from "../assets/hero-health.jpg";
+import SEO from "../components/SEO";
 
 export default function LearnMore() {
+  const { topicId } = useParams();
+  const navigate = useNavigate();
+  const heroRef = useRef(null);
+
   const deepDiveTopics = [
     {
+      id: "telehealth",
       title: "Telehealth Platforms",
       description:
-        "PrimuxCare offers a secure, modern telehealth suite that enables virtual consultations, appointment scheduling, triage, and remote patient monitoring. With encrypted communication channels and high-quality video, healthcare providers can deliver patient-centered care from anywhere. Clinics also benefit from automated reminders, digital documentation, and real-time follow-up tools.",
+        "PrimuxCare offers a secure, modern telehealth suite that enables virtual consultations, appointment scheduling, triage, and remote patient monitoring.",
       features: [
         "HD video consultations with encrypted sessions",
         "Remote patient monitoring dashboards",
@@ -15,9 +23,10 @@ export default function LearnMore() {
       ],
     },
     {
+      id: "ai-automation",
       title: "AI & Automation Tools",
       description:
-        "Our intelligent automation tools streamline hospital workflows by eliminating repetitive tasks, reducing human error, and improving productivity. AI-driven triage, automated form handling, and predictive scheduling allow healthcare teams to focus more on patient care and less on administrative tasks.",
+        "Our intelligent automation tools streamline hospital workflows by eliminating repetitive tasks, reducing human error, and improving productivity.",
       features: [
         "AI-driven triage and symptom analysis",
         "Automated patient intake & digital form processing",
@@ -26,9 +35,10 @@ export default function LearnMore() {
       ],
     },
     {
+      id: "data-analytics",
       title: "Healthcare Data Analytics",
       description:
-        "PrimuxCare transforms raw hospital data into meaningful insights. Our analytics platform helps healthcare organizations track performance, identify trends, forecast patient loads, and improve clinical and operational decisions. Custom dashboards give leaders a clear view of quality metrics, staff efficiency, and financial patterns.",
+        "PrimuxCare transforms raw hospital data into meaningful insights, helping organizations track performance, forecast patient loads, and improve decisions.",
       features: [
         "Customizable clinical and operational dashboards",
         "Predictive analytics for patient inflow and risk scoring",
@@ -37,9 +47,10 @@ export default function LearnMore() {
       ],
     },
     {
+      id: "ehr-integration",
       title: "Electronic Health Record (EHR) Integration",
       description:
-        "We integrate seamlessly with existing EHR systems, helping healthcare providers centralize patient information and reduce data fragmentation. Our system improves workflow continuity between departments and ensures secure, accurate, and accessible patient health records.",
+        "We integrate seamlessly with existing EHR systems, centralizing patient info and reducing data fragmentation.",
       features: [
         "Smooth integration with major EHR platforms",
         "Centralized patient data access",
@@ -48,9 +59,10 @@ export default function LearnMore() {
       ],
     },
     {
+      id: "hospital-automation",
       title: "Hospital Automation & Smart Facility Tools",
       description:
-        "PrimuxCare supports automated hospital management — from digital queues to smart bed allocation and inventory monitoring. These tools minimize waiting time, prevent resource waste, and create smooth hospital experiences for both patients and healthcare teams.",
+        "PrimuxCare supports automated hospital management — from digital queues to smart bed allocation and inventory monitoring.",
       features: [
         "Digital queue and virtual waiting rooms",
         "Automated bed/room allocation",
@@ -59,9 +71,10 @@ export default function LearnMore() {
       ],
     },
     {
+      id: "patient-engagement",
       title: "Patient Engagement Tools",
       description:
-        "We help hospitals stay connected with their patients through mobile-friendly tools, reminders, wellness education, and digital communication channels. These features increase patient satisfaction and improve overall health outcomes.",
+        "We help hospitals stay connected with patients through mobile-friendly tools, reminders, wellness education, and digital communication channels.",
       features: [
         "Patient portal and health education resources",
         "Medication reminders and follow-up alerts",
@@ -71,56 +84,97 @@ export default function LearnMore() {
     },
   ];
 
+  // Get current topic
+  const topic = useMemo(
+    () => deepDiveTopics.find((t) => t.id === topicId) || deepDiveTopics[0],
+    [topicId]
+  );
+
+  // Scroll to top when topic changes
+  useEffect(() => {
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [topicId]);
+
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-teal-50">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-              Learn More About <span className="text-emerald-600">PrimuxCare</span>
-            </h1>
-            <p className="text-xl text-gray-700 leading-relaxed">
-              Discover the technology powering the future of healthcare — built to enhance efficiency,
-              improve patient outcomes, and support modern hospitals.
-            </p>
-          </div>
+      <SEO title={`${topic.title} | PrimuxCare`} description={topic.description} />
 
-          <div className="relative">
-            <div className="aspect-square rounded-2xl bg-emerald-100 opacity-20 absolute inset-0 blur-3xl"></div>
-            <img
-              src={heroImage}
-              alt="Healthcare professionals using digital technology"
-              className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
-            />
-          </div>
-        </div>
-      </section>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={topic.id} // re-mount on topic change
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Hero Section */}
+          <section ref={heroRef} className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-teal-50">
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+                  {topic.title} <span className="text-emerald-600">by PrimuxCare</span>
+                </h1>
+                <p className="text-xl text-gray-700 leading-relaxed">{topic.description}</p>
 
-      {/* Deep Dive Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
-          Explore Our Solutions in Detail
-        </h2>
+                {/* Topic navigation buttons */}
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {deepDiveTopics.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => navigate(`/learn-more/${t.id}`)}
+                      className={`px-3 py-1 rounded-full border ${
+                        t.id === topic.id
+                          ? "bg-emerald-600 text-white"
+                          : "border-emerald-400 text-emerald-600 hover:bg-emerald-100"
+                      } transition-all`}
+                    >
+                      {t.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {deepDiveTopics.map((topic, idx) => (
-            <div
-              key={idx}
-              className="bg-emerald-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-all border border-emerald-100"
-            >
-              <h3 className="text-2xl font-semibold mb-4 text-gray-900">{topic.title}</h3>
-              <p className="text-gray-700 mb-4">{topic.description}</p>
-
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                {topic.features.map((feature, fIdx) => (
-                  <li key={fIdx}>{feature}</li>
-                ))}
-              </ul>
+              <div className="relative">
+                <div className="aspect-square rounded-2xl bg-emerald-100 opacity-20 absolute inset-0 blur-3xl"></div>
+                <img
+                  src={heroImage}
+                  alt={topic.title}
+                  className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
+                />
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+
+          {/* Features Section */}
+          <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
+              Key Features
+            </h2>
+
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 max-w-3xl mx-auto">
+              {topic.features.map((feature, idx) => (
+                <li key={idx}>{feature}</li>
+              ))}
+            </ul>
+
+            {/* Clickable cards for each topic */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+              {deepDiveTopics.map((t) => (
+                <div
+                  key={t.id}
+                  onClick={() => navigate(`/learn-more/${t.id}`)}
+                  className="bg-emerald-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer border border-emerald-100"
+                >
+                  <h3 className="text-2xl font-semibold mb-3 text-gray-900">{t.title}</h3>
+                  <p className="text-gray-700">{t.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
