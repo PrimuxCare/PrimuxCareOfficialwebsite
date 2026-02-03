@@ -25,7 +25,7 @@ const Index = () => {
         <CTA />
       </main>
 
-      <Footer />
+     
     </div>
   );
 };

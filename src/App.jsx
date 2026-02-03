@@ -7,37 +7,55 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-// Components
+// Layout Components
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import PageTransition from "./components/PageTransition";
 
-// Pages
+// Core Pages
 import Index from "./pages/Index";
 import GetStarted from "./pages/GetStarted";
 import ContactSales from "./pages/ContactSales";
 import LearnMore from "./pages/LearnMore";
 import NotFound from "./pages/NotFound";
 
-// Placeholder Page Template
-const PageTemplate = ({ title }) => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
-    <h1 className="text-4xl font-bold text-gray-800">{title}</h1>
-  </div>
-);
+// ✅ REAL PAGES (built)
+import Security from "./pages/Security";
+import Features from "./pages/Features";
+import Pricing from "./pages/Pricing";
+import Updates from "./pages/Updates"; 
 
-// Scroll to top on route change
+// ✅ REAL COMPANY PAGES
+import Careers from "./pages/Careers";
+import Blog from "./pages/Blog";
+import Press from "./pages/Press";
+
+// ✅ REAL RESOURCES PAGES
+import API from "./pages/API";
+import Support from "./pages/Support";
+import Community from "./pages/Community";
+
+// ✅ REAL LEGAL PAGES
+import Terms from "./pages/Terms";
+import Compliance from "./pages/Compliance";
+import Cookies from "./pages/Cookies";
+
+/**
+ * Scroll to top on route change
+ */
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
   return null;
 }
 
-// App Wrapper with Navigation, Routes, and Footer
+/**
+ * App Wrapper
+ */
 function AppWrapper() {
   const location = useLocation();
 
@@ -45,86 +63,45 @@ function AppWrapper() {
     <>
       <Navigation />
 
-      <main>
+      <main className="pt-16">
         <ScrollToTop />
 
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <PageTransition>
-                  <Index />
-                </PageTransition>
-              }
-            />
+            {/* ================= HOME ================= */}
+            <Route path="/" element={<PageTransition><Index /></PageTransition>} />
 
-            <Route
-              path="/get-started"
-              element={
-                <PageTransition>
-                  <GetStarted />
-                </PageTransition>
-              }
-            />
+            {/* ================= PRIMARY CTAs ================= */}
+            <Route path="/get-started" element={<PageTransition><GetStarted /></PageTransition>} />
+            <Route path="/contact-sales" element={<PageTransition><ContactSales /></PageTransition>} />
 
-            <Route
-              path="/contact-sales"
-              element={
-                <PageTransition>
-                  <ContactSales />
-                </PageTransition>
-              }
-            />
+            {/* ================= LEARN MORE ================= */}
+            <Route path="/learn-more" element={<PageTransition><LearnMore /></PageTransition>} />
+            <Route path="/learn-more/:topicId" element={<PageTransition><LearnMore /></PageTransition>} />
 
-            {/* LearnMore Pages */}
-            <Route
-              path="/learn-more"
-              element={
-                <PageTransition>
-                  <LearnMore />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/learn-more/:topicId"
-              element={
-                <PageTransition>
-                  <LearnMore />
-                </PageTransition>
-              }
-            />
+            {/* ================= PRODUCT ================= */}
+            <Route path="/features" element={<PageTransition><Features /></PageTransition>} />
+            <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
+            <Route path="/security" element={<PageTransition><Security /></PageTransition>} />
+            <Route path="/updates" element={<PageTransition><Updates /></PageTransition>} />
 
-            {/* Product Pages */}
-            <Route path="/features" element={<PageTemplate title="Features" />} />
-            <Route path="/pricing" element={<PageTemplate title="Pricing" />} />
-            <Route path="/security" element={<PageTemplate title="Security" />} />
-            <Route path="/updates" element={<PageTemplate title="Updates" />} />
+            {/* ================= COMPANY ================= */}
+            <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
+            <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+            <Route path="/press" element={<PageTransition><Press /></PageTransition>} />
 
-            {/* Company Pages */}
-            <Route path="/careers" element={<PageTemplate title="Careers" />} />
-            <Route path="/blog" element={<PageTemplate title="Blog" />} />
-            <Route path="/press" element={<PageTemplate title="Press" />} />
+            {/* ================= RESOURCES ================= */}
+            <Route path="/api" element={<PageTransition><API /></PageTransition>} />
+            <Route path="/support" element={<PageTransition><Support /></PageTransition>} />
+            <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
 
-            {/* Resources Pages */}
-            <Route path="/api" element={<PageTemplate title="API" />} />
-            <Route path="/support" element={<PageTemplate title="Support" />} />
-            <Route path="/community" element={<PageTemplate title="Community" />} />
+            {/* ================= LEGAL ================= */}
+            <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+            <Route path="/compliance" element={<PageTransition><Compliance /></PageTransition>} />
+            <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
 
-            {/* Legal Pages */}
-            <Route path="/terms" element={<PageTemplate title="Terms" />} />
-            <Route path="/compliance" element={<PageTemplate title="Compliance" />} />
-            <Route path="/cookies" element={<PageTemplate title="Cookies" />} />
-
-            {/* Catch-all */}
-            <Route
-              path="*"
-              element={
-                <PageTransition>
-                  <NotFound />
-                </PageTransition>
-              }
-            />
+            {/* ================= 404 ================= */}
+            <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </main>
@@ -134,13 +111,13 @@ function AppWrapper() {
   );
 }
 
-// Main App Component
-function App() {
+/**
+ * Root App
+ */
+export default function App() {
   return (
     <BrowserRouter>
       <AppWrapper />
     </BrowserRouter>
   );
 }
-
-export default App;
