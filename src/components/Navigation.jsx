@@ -133,7 +133,7 @@ export default function Navigation() {
                     onClick={() => setIsProductsOpen(false)}
                     className="block px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors"
                   >
-                    <div className="font-semibold mb-0.5">Digital Dental Folder</div>
+                    <div className="font-semibold mb-0.5">Dental Management Software</div>
                     <div className="text-xs text-gray-500 font-normal">Manage dental records seamlessly</div>
                   </a>
                 </div>
@@ -211,7 +211,7 @@ export default function Navigation() {
                     }}
                     className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
                   >
-                    Digital Dental Folder
+                    Dental Management Software
                   </a>
                 </div>
               )}
