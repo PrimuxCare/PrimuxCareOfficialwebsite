@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import primuxcare from "../assets/PrimuxCareFavicon.png";
@@ -90,6 +90,26 @@ export default function Navigation() {
 
           {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center space-x-8">
+            {/* PRODUCTS DROPDOWN */}
+            <div className="relative group py-4">
+              <button className="font-medium transition-colors text-gray-700 hover:text-emerald-600 flex items-center">
+                Products <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+              <div className="absolute left-0 top-full -mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                <div className="p-2">
+                  <a 
+                    href="https://hospital-frontend-pl3b.vercel.app/login" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors"
+                  >
+                    <div className="font-semibold mb-0.5">Digital Dental Folder</div>
+                    <div className="text-xs text-gray-500 font-normal">Manage dental records seamlessly</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <button
               onClick={() => scrollToSection("services")}
               className={navLinkClass("services")}
@@ -131,24 +151,37 @@ export default function Navigation() {
       {/* MOBILE MENU */}
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 shadow-sm">
-          <div className="px-4 py-4 space-y-3">
+          <div className="px-4 py-4 flex flex-col space-y-4">
+            <div className="flex flex-col space-y-2 border-b border-gray-50 pb-4">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Products</span>
+              <a 
+                href="https://hospital-frontend-pl3b.vercel.app/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+              >
+                Digital Dental Folder
+              </a>
+            </div>
+
             <button
               onClick={() => scrollToSection("services")}
-              className={navLinkClass("services")}
+              className={`${navLinkClass("services")} text-left`}
             >
               Services
             </button>
 
             <button
               onClick={() => scrollToSection("about")}
-              className={navLinkClass("about")}
+              className={`${navLinkClass("about")} text-left`}
             >
               About
             </button>
 
             <button
               onClick={() => scrollToSection("contact")}
-              className={navLinkClass("contact")}
+              className={`${navLinkClass("contact")} text-left`}
             >
               Contact
             </button>
