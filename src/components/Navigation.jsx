@@ -5,6 +5,7 @@ import primuxcare from "../assets/PrimuxCareFavicon.png";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Navigation() {
       }, 100);
     }
     setIsOpen(false);
+    setIsProductsOpen(false);
   };
 
   const scrollToSection = (id) => {
@@ -35,6 +37,7 @@ export default function Navigation() {
     }
     setActiveSection(id);
     setIsOpen(false);
+    setIsProductsOpen(false);
   };
 
   // 🔥 Active section observer
@@ -59,6 +62,11 @@ export default function Navigation() {
     });
 
     return () => observer.disconnect();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setIsOpen(false);
+    setIsProductsOpen(false);
   }, [location.pathname]);
 
   const navLinkClass = (id) =>
@@ -91,16 +99,38 @@ export default function Navigation() {
           {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center space-x-8">
             {/* PRODUCTS DROPDOWN */}
-            <div className="relative group py-4">
-              <button className="font-medium transition-colors text-gray-700 hover:text-emerald-600 flex items-center">
-                Products <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-200" />
+            <div
+              className="relative group py-4"
+              onMouseLeave={() => setIsProductsOpen(false)}
+            >
+              <button
+                onClick={() => setIsProductsOpen((prev) => !prev)}
+                onMouseEnter={() => setIsProductsOpen(true)}
+                aria-expanded={isProductsOpen}
+                aria-haspopup="true"
+                className="font-medium transition-colors text-gray-700 hover:text-emerald-600 flex items-center"
+              >
+                Products{" "}
+                <ChevronDown
+                  size={16}
+                  className={`ml-1 transition-transform duration-200 ${
+                    isProductsOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-              <div className="absolute left-0 top-full -mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+              <div
+                className={`absolute left-0 top-full -mt-2 w-64 bg-white border border-gray-100 rounded-xl shadow-lg transition-all duration-200 overflow-hidden ${
+                  isProductsOpen
+                    ? "opacity-100 visible"
+                    : "opacity-0 invisible"
+                }`}
+              >
                 <div className="p-2">
                   <a 
                     href="https://hospital-frontend-pl3b.vercel.app/login" 
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => setIsProductsOpen(false)}
                     className="block px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors"
                   >
                     <div className="font-semibold mb-0.5">Digital Dental Folder</div>
@@ -152,17 +182,39 @@ export default function Navigation() {
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 shadow-sm">
           <div className="px-4 py-4 flex flex-col space-y-4">
-            <div className="flex flex-col space-y-2 border-b border-gray-50 pb-4">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Products</span>
-              <a 
-                href="https://hospital-frontend-pl3b.vercel.app/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+            <div className="border-b border-gray-50 pb-4">
+              <button
+                onClick={() => setIsProductsOpen((prev) => !prev)}
+                aria-expanded={isProductsOpen}
+                className="w-full flex items-center justify-between text-left"
               >
-                Digital Dental Folder
-              </a>
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  Products
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={`text-gray-500 transition-transform duration-200 ${
+                    isProductsOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isProductsOpen && (
+                <div className="mt-3 flex flex-col space-y-2">
+                  <a 
+                    href="https://hospital-frontend-pl3b.vercel.app/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsProductsOpen(false);
+                    }}
+                    className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+                  >
+                    Digital Dental Folder
+                  </a>
+                </div>
+              )}
             </div>
 
             <button
@@ -187,7 +239,11 @@ export default function Navigation() {
             </button>
 
             <button
-              onClick={() => navigate("/get-started")}
+              onClick={() => {
+                setIsOpen(false);
+                setIsProductsOpen(false);
+                navigate("/get-started");
+              }}
               className="w-full bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 font-semibold"
             >
               Get Started
