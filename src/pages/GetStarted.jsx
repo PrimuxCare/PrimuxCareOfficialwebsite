@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { User, Mail, Layers, DollarSign, FileText, Phone, X } from "lucide-react";
+import { User, Mail, Layers, FileText, Phone, X } from "lucide-react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import SEO from "../components/SEO";
@@ -10,7 +10,6 @@ const GetStarted = () => {
     email: "",
     phone: "",
     projectType: "",
-    budget: "",
     details: "",
   });
 
@@ -38,7 +37,6 @@ const GetStarted = () => {
     if (!/^\d{7,15}$/.test(formData.phone.replace(/\D/g, "")))
       newErrors.phone = "Enter a valid phone number (7–15 digits).";
     if (!formData.projectType) newErrors.projectType = "Select a project type.";
-    if (!formData.budget) newErrors.budget = "Select your budget range.";
     if (!formData.details.trim()) newErrors.details = "Project details cannot be empty.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -84,7 +82,6 @@ const GetStarted = () => {
         email: "",
         phone: "",
         projectType: "",
-        budget: "",
         details: "",
       });
 
@@ -105,13 +102,6 @@ const GetStarted = () => {
     { value: "patient-portal", label: "Patient Portal" },
     { value: "health-website", label: "Healthcare Website" },
     { value: "other", label: "Other Custom Solution" },
-  ];
-
-  const budgetOptions = [
-    { value: "under-1000", label: "Below $1,000" },
-    { value: "1000-5000", label: "$1,000 – $5,000" },
-    { value: "5000-10000", label: "$5,000 – $10,000" },
-    { value: "10000+", label: "$10,000 and above" },
   ];
 
   return (
@@ -216,28 +206,6 @@ const GetStarted = () => {
               </div>
               {errors.projectType && <p className="text-red-500 text-sm mt-1.5">{errors.projectType}</p>}
             </div>
-          </div>
-
-          {/* Budget */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2 text-sm">Estimated Budget</label>
-            <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
-              <DollarSign className="text-gray-400 mr-3" size={20} />
-              <select
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="w-full outline-none bg-transparent text-gray-800"
-              >
-                <option value="">Select your budget range</option>
-                {budgetOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {errors.budget && <p className="text-red-500 text-sm mt-1.5">{errors.budget}</p>}
           </div>
 
           {/* Project Details */}
