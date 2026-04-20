@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { User, Mail, Layers, DollarSign, FileText, Phone, X } from "lucide-react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import SEO from "../components/SEO";
 
 const GetStarted = () => {
   const [formData, setFormData] = useState({
@@ -114,97 +115,114 @@ const GetStarted = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:py-20">
-      <div className="max-w-3xl w-full bg-white p-6 sm:p-10 md:p-12 rounded-3xl shadow-2xl border border-gray-100">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
-          Start Your{" "}
-          <span className="bg-gradient-to-r from-green-500 to-emerald-400 bg-clip-text text-transparent">
-            Digital Health Project
-          </span>
-        </h1>
-        <p className="text-gray-600 text-base md:text-lg mb-6 sm:mb-10 text-center">
-          Fill in the details below, and our project team will reach out to get started.
-        </p>
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50/50 via-gray-50 to-teal-50/50 py-16 px-4 sm:py-24 relative overflow-hidden">
+      <SEO title="Get Started | PrimuxCare" description="Start your digital health project with PrimuxCare today." />
+      
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-          {/* Full Name */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Full Name</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <User className="text-gray-400 mr-2" size={20} />
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Your full name"
-                className="w-full outline-none text-gray-800"
-              />
+      <div className="max-w-3xl w-full bg-white/80 backdrop-blur-xl p-8 sm:p-12 rounded-[2rem] shadow-2xl border border-white/60 relative z-10">
+        <div className="text-center mb-10">
+          <div className="inline-block px-4 py-1.5 bg-emerald-100/50 rounded-full border border-emerald-200/50 mb-4">
+            <span className="text-emerald-700 font-medium text-sm tracking-wide">Project Inquiry</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Start Your{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+              Digital Health Project
+            </span>
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Fill in the details below, and our project team will reach out to get started.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Full Name */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Full Name</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <User className="text-gray-400 mr-3" size={20} />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.fullName && <p className="text-red-500 text-sm mt-1.5">{errors.fullName}</p>}
             </div>
-            {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
+
+            {/* Email */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Email Address</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Mail className="text-gray-400 mr-3" size={20} />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1.5">{errors.email}</p>}
+            </div>
           </div>
 
-          {/* Email */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Email Address</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Mail className="text-gray-400 mr-2" size={20} />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="w-full outline-none text-gray-800"
-              />
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Phone */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Phone Number</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Phone className="text-gray-400 mr-3" size={20} />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="(123) 456-7890"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.phone && <p className="text-red-500 text-sm mt-1.5">{errors.phone}</p>}
             </div>
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div>
 
-          {/* Phone */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Phone Number</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Phone className="text-gray-400 mr-2" size={20} />
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="(123) 456-7890"
-                className="w-full outline-none text-gray-800"
-              />
+            {/* Project Type */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Project Type</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Layers className="text-gray-400 mr-3" size={20} />
+                <select
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
+                  className="w-full outline-none bg-transparent text-gray-800"
+                >
+                  <option value="">Select project type</option>
+                  {projectOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {errors.projectType && <p className="text-red-500 text-sm mt-1.5">{errors.projectType}</p>}
             </div>
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
-
-          {/* Project Type */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Project Type</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Layers className="text-gray-400 mr-2" size={20} />
-              <select
-                name="projectType"
-                value={formData.projectType}
-                onChange={handleChange}
-                className="w-full outline-none bg-transparent text-gray-800"
-              >
-                <option value="">Select project type</option>
-                {projectOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {errors.projectType && <p className="text-red-500 text-sm mt-1">{errors.projectType}</p>}
           </div>
 
           {/* Budget */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Estimated Budget</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <DollarSign className="text-gray-400 mr-2" size={20} />
+            <label className="block text-gray-700 font-medium mb-2 text-sm">Estimated Budget</label>
+            <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+              <DollarSign className="text-gray-400 mr-3" size={20} />
               <select
                 name="budget"
                 value={formData.budget}
@@ -219,36 +237,36 @@ const GetStarted = () => {
                 ))}
               </select>
             </div>
-            {errors.budget && <p className="text-red-500 text-sm mt-1">{errors.budget}</p>}
+            {errors.budget && <p className="text-red-500 text-sm mt-1.5">{errors.budget}</p>}
           </div>
 
           {/* Project Details */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Project Details</label>
-            <div className="flex flex-col border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
+            <label className="block text-gray-700 font-medium mb-2 text-sm">Project Details</label>
+            <div className="flex flex-col bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
               <div className="flex items-start">
-                <FileText className="text-gray-400 mr-2 mt-1" size={20} />
+                <FileText className="text-gray-400 mr-3 mt-1" size={20} />
                 <textarea
                   name="details"
                   value={formData.details}
                   onChange={handleChange}
-                  rows="5"
-                  placeholder="Describe your project idea..."
-                  className="w-full outline-none text-gray-800 resize-none"
+                  rows="4"
+                  placeholder="Describe your project idea, goals, or any specific requirements..."
+                  className="w-full outline-none text-gray-800 resize-none bg-transparent placeholder-gray-400"
                   maxLength={1000}
                 />
               </div>
-              <p className="text-gray-400 text-sm mt-1 text-right">{formData.details.length} / 1000</p>
+              <p className="text-gray-400 text-xs mt-2 text-right">{formData.details.length} / 1000</p>
             </div>
-            {errors.details && <p className="text-red-500 text-sm mt-1">{errors.details}</p>}
+            {errors.details && <p className="text-red-500 text-sm mt-1.5">{errors.details}</p>}
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-gradient-to-r from-green-500 to-emerald-400 text-white py-3 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-500 transition-all duration-300 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
+            className={`w-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-4 rounded-xl font-semibold text-lg hover:from-emerald-700 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-emerald-500/30 ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.01]"
             }`}
           >
             {loading ? "Submitting..." : "Start My Project"}
@@ -258,21 +276,27 @@ const GetStarted = () => {
 
       {/* Thank You Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl transform transition-all">
             <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-900"
+              className="absolute top-5 right-5 text-gray-400 hover:text-gray-800 transition-colors bg-gray-100 hover:bg-gray-200 p-2 rounded-full"
               onClick={() => setShowModal(false)}
             >
-              <X size={24} />
+              <X size={20} />
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 text-center">Thank You! 🎉</h2>
-            <p className="text-gray-700 text-center mb-6">
-              Your project submission has been received. Our team will reach out to you shortly.
+            
+            <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-3xl">🎉</span>
+            </div>
+            
+            <h2 className="text-2xl font-bold mb-3 text-gray-900 text-center">Thank You!</h2>
+            <p className="text-gray-600 text-center mb-8 leading-relaxed">
+              Your project submission has been received. Our team will review the details and reach out to you shortly to discuss the next steps.
             </p>
+            
             <button
               onClick={() => setShowModal(false)}
-              className="block mx-auto bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-semibold transition-all"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-6 rounded-xl font-semibold transition-all"
             >
               Close
             </button>

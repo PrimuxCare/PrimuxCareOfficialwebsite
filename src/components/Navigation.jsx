@@ -42,9 +42,16 @@ export default function Navigation() {
 
   // 🔥 Active section observer
   useEffect(() => {
-    if (location.pathname !== "/") return;
+    if (location.pathname !== "/") {
+      if (location.pathname.includes("/contact")) {
+        setActiveSection("contact");
+      } else {
+        setActiveSection("");
+      }
+      return;
+    }
 
-    const sections = ["services", "about", "contact"];
+    const sections = ["services", "about"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -77,19 +84,19 @@ export default function Navigation() {
     }`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+    <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl px-4 mx-auto">
         <div className="flex justify-between items-center h-16">
 
           {/* LOGO */}
           <div
-            className="flex items-center cursor-pointer"
+            className="flex items-center cursor-pointer group"
             onClick={scrollToTop}
           >
             <img
               src={primuxcare}
               alt="PrimuxCare logo"
-              className="w-16 h-16 object-contain"
+              className="w-16 h-16 object-contain group-hover:scale-105 transition-transform"
             />
             <span className="text-2xl font-bold text-emerald-700">
               Primux<span className="text-emerald-500">Care</span>
@@ -155,15 +162,15 @@ export default function Navigation() {
             </button>
 
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => navigate("/contact")}
               className={navLinkClass("contact")}
             >
-              Contact
+              Contact Us
             </button>
 
             <button
               onClick={() => navigate("/get-started")}
-              className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-all font-semibold shadow-sm hover:shadow-md"
+              className="bg-emerald-600 text-white px-6 py-2.5 rounded-xl hover:bg-emerald-700 transition-all font-semibold shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:-translate-y-0.5"
             >
               Get Started
             </button>
@@ -171,7 +178,7 @@ export default function Navigation() {
 
           {/* MOBILE TOGGLE */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)}>
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 p-2">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -180,9 +187,9 @@ export default function Navigation() {
 
       {/* MOBILE MENU */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-sm">
-          <div className="px-4 py-4 flex flex-col space-y-4">
-            <div className="border-b border-gray-50 pb-4">
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full left-0">
+          <div className="px-6 py-6 flex flex-col space-y-6">
+            <div className="border-b border-gray-100 pb-6">
               <button
                 onClick={() => setIsProductsOpen((prev) => !prev)}
                 aria-expanded={isProductsOpen}
@@ -194,13 +201,13 @@ export default function Navigation() {
                 <ChevronDown
                   size={16}
                   className={`text-gray-500 transition-transform duration-200 ${
-                    isProductsOpen ? "rotate-180" : ""
+                    isProductsOpen ? "rotate-180 text-emerald-600" : ""
                   }`}
                 />
               </button>
 
               {isProductsOpen && (
-                <div className="mt-3 flex flex-col space-y-2">
+                <div className="mt-4 flex flex-col space-y-3 bg-gray-50 p-4 rounded-xl">
                   <button 
                     onClick={() => {
                       setIsOpen(false);
@@ -217,23 +224,26 @@ export default function Navigation() {
 
             <button
               onClick={() => scrollToSection("services")}
-              className={`${navLinkClass("services")} text-left`}
+              className={`${navLinkClass("services")} text-left text-lg`}
             >
               Services
             </button>
 
             <button
               onClick={() => scrollToSection("about")}
-              className={`${navLinkClass("about")} text-left`}
+              className={`${navLinkClass("about")} text-left text-lg`}
             >
               About
             </button>
 
             <button
-              onClick={() => scrollToSection("contact")}
-              className={`${navLinkClass("contact")} text-left`}
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/contact");
+              }}
+              className={`${navLinkClass("contact")} text-left text-lg`}
             >
-              Contact
+              Contact Us
             </button>
 
             <button
@@ -242,7 +252,7 @@ export default function Navigation() {
                 setIsProductsOpen(false);
                 navigate("/get-started");
               }}
-              className="w-full bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 font-semibold"
+              className="w-full bg-emerald-600 text-white px-6 py-4 rounded-xl hover:bg-emerald-700 font-semibold shadow-md text-center text-lg mt-4"
             >
               Get Started
             </button>

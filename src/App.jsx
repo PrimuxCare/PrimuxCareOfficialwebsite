@@ -16,6 +16,7 @@ import PageTransition from "./components/PageTransition";
 import Index from "./pages/Index";
 import GetStarted from "./pages/GetStarted";
 import ContactSales from "./pages/ContactSales";
+import Contact from "./pages/Contact";
 import LearnMore from "./pages/LearnMore";
 import NotFound from "./pages/NotFound";
 import DentalManagementSoftware from "./pages/DentalManagementSoftware";
@@ -75,6 +76,7 @@ function AppWrapper() {
             {/* ================= PRIMARY CTAs ================= */}
             <Route path="/get-started" element={<PageTransition><GetStarted /></PageTransition>} />
             <Route path="/contact-sales" element={<PageTransition><ContactSales /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
 
             {/* ================= LEARN MORE ================= */}
             <Route path="/learn-more" element={<PageTransition><LearnMore /></PageTransition>} />

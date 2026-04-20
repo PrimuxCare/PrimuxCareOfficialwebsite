@@ -13,52 +13,40 @@ const CTA = () => {
   return (
     <section
       id="contact"
-      className="py-24 bg-gradient-to-b from-white via-emerald-50 to-teal-50"
+      className="py-24 bg-white"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative rounded-3xl overflow-hidden shadow-lg"
+          className="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-900 border border-slate-800"
         >
-          {/* Soft background overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-10" />
+          {/* Decorative background gradients */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-          <div className="relative px-8 py-16 md:px-16 md:py-20 text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <div className="relative z-10 px-8 py-16 md:px-16 md:py-24 text-center space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
               Ready to Transform Your{" "}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
                 Healthcare Experience?
               </span>
             </h2>
 
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join thousands of healthcare providers and patients already
-              experiencing the future of digital health with PrimuxCare.
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Join leading healthcare providers and forward-thinking clinics already experiencing the future of digital health with PrimuxCare.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center pt-4">
               {/* Primary CTA */}
               <motion.button
                 onClick={() => navigateWithScroll("/get-started")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                animate={{
-                  boxShadow: [
-                    "0 0 0px rgba(16,185,129,0.0)",
-                    "0 0 24px rgba(16,185,129,0.35)",
-                    "0 0 0px rgba(16,185,129,0.0)",
-                  ],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="group bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-8 py-4 rounded-lg flex items-center justify-center gap-2 font-semibold shadow-md"
+                className="group bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-xl flex items-center justify-center gap-2 font-semibold shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all"
               >
                 Get Started Today
                 <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
@@ -69,25 +57,25 @@ const CTA = () => {
                 onClick={() => navigateWithScroll("/contact-sales")}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="group border-2 border-gray-300 text-gray-800 px-8 py-4 rounded-lg hover:border-emerald-500 hover:text-emerald-600 transition-all flex items-center justify-center gap-2 font-semibold"
+                className="group border border-slate-700 bg-slate-800/50 text-white px-8 py-4 rounded-xl hover:bg-slate-800 hover:border-slate-600 transition-all flex items-center justify-center gap-2 font-semibold backdrop-blur-sm"
               >
-                <Mail className="mr-2" />
+                <Mail className="mr-2 text-slate-400 group-hover:text-emerald-400 transition-colors" />
                 Contact Sales
               </motion.button>
             </div>
 
             {/* Trust indicators */}
-            <div className="pt-8 flex flex-wrap justify-center gap-8 text-sm text-gray-500">
+            <div className="pt-10 flex flex-wrap justify-center gap-8 text-sm text-slate-400">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 No Credit Card Required
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 Free 30-Day Trial
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 Cancel Anytime
               </div>
             </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Building2, Mail, Phone, MessageSquare, Globe, X, Info } from "lucide-react";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import SEO from "../components/SEO";
 
 const ContactSales = () => {
   useEffect(() => window.scrollTo(0, 0), []);
@@ -88,129 +89,150 @@ const ContactSales = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:py-20">
-      <div className="max-w-3xl w-full bg-white p-6 sm:p-10 md:p-12 rounded-3xl shadow-2xl border border-gray-100">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
-          Talk to Our{" "}
-          <span className="bg-gradient-to-r from-green-500 to-emerald-400 bg-clip-text text-transparent">
-            Sales Team
-          </span>
-        </h1>
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50/50 via-gray-50 to-teal-50/50 py-16 px-4 sm:py-24 relative overflow-hidden">
+      <SEO title="Contact Sales | PrimuxCare" description="Get in touch with the PrimuxCare sales team." />
+      
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-          {/* Organization */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Organization Name</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Building2 className="text-gray-400 mr-2" size={20} />
-              <input
-                name="organization"
-                value={formData.organization}
-                onChange={handleChange}
-                type="text"
-                placeholder="Hospital, Clinic, or Company Name"
-                className="w-full outline-none text-gray-800"
-              />
+      <div className="max-w-3xl w-full bg-white/80 backdrop-blur-xl p-8 sm:p-12 rounded-[2rem] shadow-2xl border border-white/60 relative z-10">
+        <div className="text-center mb-10">
+          <div className="inline-block px-4 py-1.5 bg-emerald-100/50 rounded-full border border-emerald-200/50 mb-4">
+            <span className="text-emerald-700 font-medium text-sm tracking-wide">Enterprise Solutions</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Talk to Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+              Sales Team
+            </span>
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Discover how PrimuxCare can help your organization deliver exceptional healthcare.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Organization */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Organization Name</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Building2 className="text-gray-400 mr-3" size={20} />
+                <input
+                  name="organization"
+                  value={formData.organization}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Hospital, Clinic, or Company Name"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.organization && <p className="text-red-500 text-sm mt-1.5">{errors.organization}</p>}
             </div>
-            {errors.organization && <p className="text-red-500 text-sm mt-1">{errors.organization}</p>}
+
+            {/* Email */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Email Address</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Mail className="text-gray-400 mr-3" size={20} />
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  type="email"
+                  placeholder="contact@example.com"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1.5">{errors.email}</p>}
+            </div>
           </div>
 
-          {/* Email */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Email Address</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Mail className="text-gray-400 mr-2" size={20} />
-              <input
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                type="email"
-                placeholder="contact@example.com"
-                className="w-full outline-none text-gray-800"
-              />
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Phone */}
+            <div>
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Phone Number</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Phone className="text-gray-400 mr-3" size={20} />
+                <input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  className="w-full outline-none text-gray-800 bg-transparent placeholder-gray-400"
+                />
+              </div>
+              {errors.phone && <p className="text-red-500 text-sm mt-1.5">{errors.phone}</p>}
             </div>
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div>
 
-          {/* Phone */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Phone Number</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Phone className="text-gray-400 mr-2" size={20} />
-              <input
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                type="tel"
-                placeholder="(123) 456-7890"
-                className="w-full outline-none text-gray-800"
-              />
-            </div>
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
+            {/* Inquiry Type */}
+            <div className="relative">
+              <label className="block text-gray-700 font-medium mb-2 text-sm">Inquiry Type</label>
+              <div className="flex items-center bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
+                <Globe className="text-gray-400 mr-3" size={20} />
+                <select
+                  name="inquiryType"
+                  value={formData.inquiryType}
+                  onChange={handleChange}
+                  className="w-full outline-none bg-transparent text-gray-800"
+                >
+                  <option value="">Select inquiry type</option>
+                  {inquiryOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
 
-          {/* Inquiry Type */}
-          <div className="relative">
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Inquiry Type</label>
-            <div className="flex items-center border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
-              <Globe className="text-gray-400 mr-2" size={20} />
-              <select
-                name="inquiryType"
-                value={formData.inquiryType}
-                onChange={handleChange}
-                className="w-full outline-none bg-transparent text-gray-800"
-              >
-                <option value="">Select inquiry type</option>
-                {inquiryOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-              </select>
-
-              {/* Tooltip */}
-              {formData.inquiryType && (
-                <div className="ml-2 relative">
-                  <Info
-                    size={18}
-                    className="text-gray-400 cursor-pointer"
-                    onClick={() => setTooltipVisible(!tooltipVisible)}
-                  />
-                  <div className={`absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-48 p-2 bg-gray-800 text-white text-sm rounded transition-opacity
-                    ${tooltipVisible ? "opacity-100" : "opacity-0"} md:group-hover:opacity-100`}>
-                    {inquiryOptions.find(o => o.value === formData.inquiryType)?.info}
+                {/* Tooltip */}
+                {formData.inquiryType && (
+                  <div className="ml-2 relative">
+                    <Info
+                      size={18}
+                      className="text-gray-400 cursor-pointer hover:text-emerald-500 transition-colors"
+                      onClick={() => setTooltipVisible(!tooltipVisible)}
+                    />
+                    <div className={`absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-56 p-3 bg-gray-900 text-white text-xs rounded-xl shadow-xl transition-opacity
+                      ${tooltipVisible ? "opacity-100" : "opacity-0"} md:group-hover:opacity-100 z-20`}>
+                      {inquiryOptions.find(o => o.value === formData.inquiryType)?.info}
+                      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 rotate-45"></div>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+              {errors.inquiryType && <p className="text-red-500 text-sm mt-1.5">{errors.inquiryType}</p>}
             </div>
-            {errors.inquiryType && <p className="text-red-500 text-sm mt-1">{errors.inquiryType}</p>}
           </div>
 
           {/* Message */}
           <div>
-            <label className="block text-gray-700 font-medium mb-1 sm:mb-2">Message</label>
-            <div className="flex flex-col border border-gray-300 rounded-xl p-3 focus-within:ring-2 focus-within:ring-green-400 transition-all">
+            <label className="block text-gray-700 font-medium mb-2 text-sm">Message</label>
+            <div className="flex flex-col bg-white border border-gray-200 rounded-xl p-3.5 focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-emerald-400 transition-all shadow-sm">
               <div className="flex items-start">
-                <MessageSquare className="text-gray-400 mr-2 mt-1" size={20} />
+                <MessageSquare className="text-gray-400 mr-3 mt-1" size={20} />
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="5"
+                  rows="4"
                   placeholder="Tell us more about your goals or organization..."
-                  className="w-full outline-none text-gray-800 resize-none"
+                  className="w-full outline-none text-gray-800 resize-none bg-transparent placeholder-gray-400"
                   maxLength={1000}
                 />
               </div>
-              <p className="text-gray-400 text-sm mt-1 text-right">{formData.message.length}/1000</p>
+              <p className="text-gray-400 text-xs mt-2 text-right">{formData.message.length}/1000</p>
             </div>
-            {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            {errors.message && <p className="text-red-500 text-sm mt-1.5">{errors.message}</p>}
           </div>
 
           {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-gradient-to-r from-green-500 to-emerald-400 text-white py-3 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-500 transition-all duration-300 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
+            className={`w-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-4 rounded-xl font-semibold text-lg hover:from-emerald-700 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-emerald-500/30 ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.01]"
             }`}
           >
             {loading ? "Submitting..." : "Contact Sales"}
@@ -220,21 +242,27 @@ const ContactSales = () => {
 
       {/* Success Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl transform transition-all">
             <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-900"
+              className="absolute top-5 right-5 text-gray-400 hover:text-gray-800 transition-colors bg-gray-100 hover:bg-gray-200 p-2 rounded-full"
               onClick={() => setShowModal(false)}
             >
-              <X size={24} />
+              <X size={20} />
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 text-center">Thank You! 🎉</h2>
-            <p className="text-gray-700 text-center mb-6">
-              Your inquiry has been submitted. Our sales team will reach out shortly.
+            
+            <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-3xl">🎉</span>
+            </div>
+
+            <h2 className="text-2xl font-bold mb-3 text-gray-900 text-center">Thank You!</h2>
+            <p className="text-gray-600 text-center mb-8 leading-relaxed">
+              Your inquiry has been submitted successfully. Our enterprise sales team will review your details and contact you shortly.
             </p>
+            
             <button
               onClick={() => setShowModal(false)}
-              className="block mx-auto bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg font-semibold transition-all"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-6 rounded-xl font-semibold transition-all"
             >
               Close
             </button>
