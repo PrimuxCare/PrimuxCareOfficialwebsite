@@ -126,16 +126,16 @@ export default function Navigation() {
                 }`}
               >
                 <div className="p-2">
-                  <a 
-                    href="https://hospital-frontend-pl3b.vercel.app/login" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsProductsOpen(false)}
-                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors"
+                  <button 
+                    onClick={() => {
+                      setIsProductsOpen(false);
+                      navigate("/product/dental-management");
+                    }}
+                    className="w-full text-left block px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors"
                   >
                     <div className="font-semibold mb-0.5">Dental Management Software</div>
                     <div className="text-xs text-gray-500 font-normal">Manage dental records seamlessly</div>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -201,18 +201,16 @@ export default function Navigation() {
 
               {isProductsOpen && (
                 <div className="mt-3 flex flex-col space-y-2">
-                  <a 
-                    href="https://hospital-frontend-pl3b.vercel.app/login"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button 
                     onClick={() => {
                       setIsOpen(false);
                       setIsProductsOpen(false);
+                      navigate("/product/dental-management");
                     }}
-                    className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+                    className="w-full text-left text-gray-700 hover:text-emerald-600 font-medium transition-colors"
                   >
                     Dental Management Software
-                  </a>
+                  </button>
                 </div>
               )}
             </div>

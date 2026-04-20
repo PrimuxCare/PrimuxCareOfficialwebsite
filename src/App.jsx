@@ -18,6 +18,7 @@ import GetStarted from "./pages/GetStarted";
 import ContactSales from "./pages/ContactSales";
 import LearnMore from "./pages/LearnMore";
 import NotFound from "./pages/NotFound";
+import DentalManagementSoftware from "./pages/DentalManagementSoftware";
 
 // ✅ REAL PAGES (built)
 import Security from "./pages/Security";
@@ -80,6 +81,7 @@ function AppWrapper() {
             <Route path="/learn-more/:topicId" element={<PageTransition><LearnMore /></PageTransition>} />
 
             {/* ================= PRODUCT ================= */}
+            <Route path="/product/dental-management" element={<PageTransition><DentalManagementSoftware /></PageTransition>} />
             <Route path="/features" element={<PageTransition><Features /></PageTransition>} />
             <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
             <Route path="/security" element={<PageTransition><Security /></PageTransition>} />
