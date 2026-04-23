@@ -70,7 +70,7 @@ export default function DentalManagementSoftware() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
-                href="https://hospital-frontend-pl3b.vercel.app/login"
+                href="https://dental.primuxcare.com/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-emerald-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
