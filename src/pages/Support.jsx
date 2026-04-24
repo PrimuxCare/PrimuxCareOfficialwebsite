@@ -8,25 +8,25 @@ const Support = () => {
 
   const supportOptions = [
     {
+      icon: Mail,
+      title: "Technical Support",
+      description: "Need help with your software? Our technical team is here to assist you.",
+      action: "Email Support",
+      link: "mailto:support@primuxcare.com",
+    },
+    {
       icon: MessageCircle,
-      title: "Live Chat Support",
-      description: "Chat with our support team in real-time for immediate assistance.",
-      action: "Start Chat",
-      link: "#",
+      title: "General Inquiries",
+      description: "Have a general question about PrimuxCare or our services?",
+      action: "Email Info",
+      link: "mailto:info@primuxcare.com",
     },
     {
       icon: Book,
-      title: "Knowledge Base",
-      description: "Browse our comprehensive guides and documentation.",
-      action: "Read Docs",
-      link: "#",
-    },
-    {
-      icon: Mail,
-      title: "Email Support",
-      description: "Send us an email and we'll get back to you within 24 hours.",
-      action: "Email Us",
-      link: "mailto:support@primuxcare.com",
+      title: "Enterprise Sales",
+      description: "Looking for a custom solution or enterprise pricing for your hospital?",
+      action: "Contact Sales",
+      link: "/contact-sales",
     },
   ];
 
@@ -57,6 +57,23 @@ const Support = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {supportOptions.map((option, index) => {
               const Icon = option.icon;
+              const isMailto = option.link.startsWith("mailto:");
+              const emailAddress = isMailto ? option.link.replace("mailto:", "") : "";
+              
+              const handleClick = (e) => {
+                if (isMailto) {
+                  e.preventDefault();
+                  // Copy to clipboard
+                  navigator.clipboard.writeText(emailAddress);
+                  
+                  // Try to open the mail client
+                  window.location.href = option.link;
+                  
+                  // Alert the user (using a simple alert since sonner might not be imported)
+                  alert(`Copied ${emailAddress} to clipboard!`);
+                }
+              };
+
               return (
                 <div key={index} className="group bg-white/80 backdrop-blur-xl p-8 rounded-[2rem] shadow-lg border border-white/60 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden flex flex-col">
                   {/* Top accent line */}
@@ -68,7 +85,11 @@ const Support = () => {
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{option.title}</h3>
                   <p className="text-gray-600 mb-8 flex-grow">{option.description}</p>
                   
-                  <a href={option.link} className="inline-flex items-center font-semibold text-emerald-600 group-hover:text-emerald-700 transition-colors mt-auto">
+                  <a 
+                    href={option.link} 
+                    onClick={handleClick}
+                    className="inline-flex items-center font-semibold text-emerald-600 group-hover:text-emerald-700 transition-colors mt-auto cursor-pointer"
+                  >
                     {option.action}
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

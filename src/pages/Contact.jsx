@@ -106,7 +106,7 @@ const Contact = () => {
           
           <div className="mt-20 text-center">
             <p className="text-gray-500">
-              Not sure where to go? Just email us directly at <a href="mailto:primuxcare@gmail.com" className="text-emerald-600 hover:underline font-medium">primuxcare@gmail.com</a>.
+              Not sure where to go? Just email us directly at <a href="mailto:info@primuxcare.com" className="text-emerald-600 hover:underline font-medium">info@primuxcare.com</a>.
             </p>
           </div>
         </div>
