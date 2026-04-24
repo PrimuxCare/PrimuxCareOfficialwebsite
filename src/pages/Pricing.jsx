@@ -39,7 +39,7 @@ export default function Pricing() {
           {/* Professional */}
           <PricingCard
             title="Professional"
-            price="₦15,000 / mo"
+            price="₦100,000 / mo"
             description="Best for growing healthcare teams"
             features={[
               "Full feature access",
